@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Form, DatePicker, Select } from "antd";
+import { Form, DatePicker, Select } from 'antd';
 
 const { MonthPicker } = DatePicker;
 const { Option } = Select;
 
-const Filter : FC = () => {
+const Filter: FC = () => {
     return (
         <Form>
             <Form.Item name="month" label="月份">
@@ -16,7 +16,7 @@ const Filter : FC = () => {
                 </Select>
             </Form.Item>
         </Form>
-    )
-}
+    );
+};
 
 export default Filter;
