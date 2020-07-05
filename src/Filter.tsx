@@ -1,19 +1,18 @@
 import React, { FC } from 'react';
-import { Form, DatePicker, Select } from 'antd';
+import { Form, DatePicker, Button } from 'antd';
 
 const { MonthPicker } = DatePicker;
-const { Option } = Select;
 
 const Filter: FC = () => {
     return (
-        <Form>
+        <Form layout="inline">
             <Form.Item name="month" label="月份">
                 <MonthPicker />
             </Form.Item>
             <Form.Item>
-                <Select>
-                    <Option value={-1}>请选择</Option>
-                </Select>
+                <Button type="primary" htmlType="submit">
+                    查询
+                </Button>
             </Form.Item>
         </Form>
     );
