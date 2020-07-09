@@ -14,6 +14,7 @@ const AccountBook: FC = () => {
     const [loading, setLoading] = useState(false);
     const [billData, setBillData] = useState(undefined as any) as any;
     const [categoriesData, setCategoriesData] = useState(undefined as any);
+    const [filterParams, setFilterParams] = useState({});
 
     const init = async () => {
         setLoading(true);
@@ -31,6 +32,10 @@ const AccountBook: FC = () => {
         setLoading(false);
     };
 
+    const handleFilterChange = (params: any) => {
+        setFilterParams(params);
+    };
+
     useEffect(() => {
         init();
         // eslint-disable-next-line
@@ -40,13 +45,13 @@ const AccountBook: FC = () => {
         <Spin spinning={loading}>
             <Layout className="app">
                 <Content className="content-section">
-                    <Filter />
+                    <Filter onChange={handleFilterChange} />
                 </Content>
                 <Content className="content-section">
                     <DataView />
                 </Content>
                 <Content className="content-section">
-                    <List data={billData} loading={loading} />
+                    <List data={billData} loading={loading} fitlerParams={filterParams} />
                 </Content>
             </Layout>
         </Spin>
