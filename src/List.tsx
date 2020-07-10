@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
 import numeral from 'numeral';
+import { CategoriesData } from './types';
 
 const List: FC<{
     data: {
@@ -10,51 +11,42 @@ const List: FC<{
     };
     loading: boolean;
     fitlerParams: any;
-}> = ({ data, loading, fitlerParams }) => {
+    categoriesData: CategoriesData;
+}> = ({ data, loading, fitlerParams, categoriesData }) => {
     const { month } = fitlerParams;
+    const categories = categoriesData && categoriesData.dataSource;
     const columns =
         data &&
         data.columns.map(item => {
-            if (item.dataIndex === 'type') {
-                return {
-                    ...item,
-                    render: (text: string) => {
-                        switch (text) {
-                            case '0':
-                                return '支出';
+            const { dataIndex } = item;
 
-                            case '1':
-                                return '收入';
-                            default:
-                                return '--';
-                        }
+            return {
+                ...item,
+                render: (text: string) => {
+                    switch (dataIndex) {
+                        case 'type':
+                            switch (text) {
+                                case '0':
+                                    return '支出';
+
+                                case '1':
+                                    return '收入';
+                                default:
+                                    return '--';
+                            }
+                        case 'time':
+                            return moment(Number(text)).format('YYYY-MM-DD HH:mm:ss');
+                        case 'category':
+                            return;
+                        case 'amount':
+                            return numeral(text).format('$0,0.00');
+                        default:
+                            return null;
                     }
-                };
-            }
-
-            if (item.dataIndex === 'time') {
-                return {
-                    ...item,
-                    render: (text: string) => {
-                        return moment(Number(text)).format('YYYY-MM-DD HH:mm:ss');
-                    }
-                };
-            }
-
-            if (item.dataIndex === 'amount') {
-                return {
-                    ...item,
-                    render: (text: string) => {
-                        return numeral(text).format('$0,0.00');
-                    }
-                };
-            }
-
-            return item;
+                }
+            };
         });
     const dataSource = data && data.dataSource;
-
-    console.log(month);
 
     return (
         <Table

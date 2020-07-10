@@ -54,3 +54,5 @@ export const getCsvData = async (url: string) => {
         });
     });
 };
+
+export const find = (target: any[], dataIndex: string) => {};

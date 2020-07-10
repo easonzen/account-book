@@ -45,13 +45,18 @@ const AccountBook: FC = () => {
         <Spin spinning={loading}>
             <Layout className="app">
                 <Content className="content-section">
-                    <Filter onChange={handleFilterChange} />
+                    <Filter onChange={handleFilterChange} categoriesData={categoriesData} />
                 </Content>
                 <Content className="content-section">
                     <DataView />
                 </Content>
                 <Content className="content-section">
-                    <List data={billData} loading={loading} fitlerParams={filterParams} />
+                    <List
+                        data={billData}
+                        categoriesData={categoriesData}
+                        loading={loading}
+                        fitlerParams={filterParams}
+                    />
                 </Content>
             </Layout>
         </Spin>
